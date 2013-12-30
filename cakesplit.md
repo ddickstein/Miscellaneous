@@ -76,4 +76,4 @@ For piece 4, Cindy will cut the piece in 3, Adam and Ben will each express prefe
 
 Truly it does not matter at each point who does the splitting and who expresses preferences, but it's simple to implement as person N always does the splitting.
 
-I truly hope this explanation was clear - if not, please leave comments and/or edits.  Enjoy your cake!
+I truly hope this explanation was clear - if not, please leave me comments.  Enjoy your cake!
