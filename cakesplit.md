@@ -14,23 +14,23 @@ If Ben and Cindy select different pieces then the solution is a little trickier.
 
 Another way to think about what happens is to assign names to the pieces that are cut.  Here Adam cuts the cake, and then Ben and Cindy choose their preferences.  We can create a preference chart as follows:
 
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|  Piece 1  |  Piece 2  |  Piece 3  |      |  Piece 1  |  Piece 2  |  Piece 3  |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|    Ben    |    Ben    |           |  OR  |    Ben    |    Ben    |           |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|   Cindy   |   Cindy   |           |      |   Cindy   |           |   Cindy   |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |  Piece 1  |  Piece 2  |  Piece 3  |      |  Piece 1  |  Piece 2  |  Piece 3  |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |    Ben    |    Ben    |           |  OR  |    Ben    |    Ben    |           |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |   Cindy   |   Cindy   |           |      |   Cindy   |           |   Cindy   |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
 
 The remaining slots are automatically filled by the cake cutter, because the person who cuts by default has no preference:
 
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|  Piece 1  |  Piece 2  |  Piece 3  |      |  Piece 1  |  Piece 2  |  Piece 3  |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|    Ben    |    Ben    |   Adam    |  OR  |    Ben    |    Ben    |   Adam    |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
-|   Cindy   |   Cindy   |   Adam    |      |   Cindy   |   Adam    |   Cindy   |
-+-----------+-----------+-----------+      +-----------+-----------+-----------+
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |  Piece 1  |  Piece 2  |  Piece 3  |      |  Piece 1  |  Piece 2  |  Piece 3  |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |    Ben    |    Ben    |   Adam    |  OR  |    Ben    |    Ben    |   Adam    |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
+    |   Cindy   |   Cindy   |   Adam    |      |   Cindy   |   Adam    |   Cindy   |
+    +-----------+-----------+-----------+      +-----------+-----------+-----------+
 
 Then each of the 3 pieces gets 2 names, and ends up getting split in two between the individuals with a preference for that piece.
 
@@ -42,27 +42,27 @@ This concept can be abstracted out to a recursive solution.  If you have a cake 
 
 Here is an example of this algorithm being applied for 4 people - Adam, Ben, Cindy, and Danielle.  Danielle is person N (person 4), so she cuts the cake into four pieces.  Now we make a preference chart for those four pieces.  Say the preference chart falls like this:
 
-+-----------+-----------+-----------+-----------+
-|  Piece 1  |  Piece 2  |  Piece 3  |  Piece 4  |
-+-----------+-----------+-----------+-----------+
-|   Adam    |   Adam    |           |   Adam    |
-+-----------+-----------+-----------+-----------+
-|           |    Ben    |    Ben    |    Ben    |
-+-----------+-----------+-----------+-----------+
-|   Cindy   |           |   Cindy   |   Cindy   |
-+-----------+-----------+-----------+-----------+
+    +-----------+-----------+-----------+-----------+
+    |  Piece 1  |  Piece 2  |  Piece 3  |  Piece 4  |
+    +-----------+-----------+-----------+-----------+
+    |   Adam    |   Adam    |           |   Adam    |
+    +-----------+-----------+-----------+-----------+
+    |           |    Ben    |    Ben    |    Ben    |
+    +-----------+-----------+-----------+-----------+
+    |   Cindy   |           |   Cindy   |   Cindy   |
+    +-----------+-----------+-----------+-----------+
 
 We then fill Danielle into the gaps:
 
-+-----------+-----------+-----------+-----------+
-|  Piece 1  |  Piece 2  |  Piece 3  |  Piece 4  |
-+-----------+-----------+-----------+-----------+
-|   Adam    |   Adam    | Danielle  |   Adam    |
-+-----------+-----------+-----------+-----------+
-| Danielle  |    Ben    |    Ben    |    Ben    |
-+-----------+-----------+-----------+-----------+
-|   Cindy   | Danielle  |   Cindy   |   Cindy   |
-+-----------+-----------+-----------+-----------+
+    +-----------+-----------+-----------+-----------+
+    |  Piece 1  |  Piece 2  |  Piece 3  |  Piece 4  |
+    +-----------+-----------+-----------+-----------+
+    |   Adam    |   Adam    | Danielle  |   Adam    |
+    +-----------+-----------+-----------+-----------+
+    | Danielle  |    Ben    |    Ben    |    Ben    |
+    +-----------+-----------+-----------+-----------+
+    |   Cindy   | Danielle  |   Cindy   |   Cindy   |
+    +-----------+-----------+-----------+-----------+
 
 Now pieces 1 through 4 must be divied up into 3 pieces each (I'm not going to draw a chart for each one, but here is a brief rundown of how it would work).
 
