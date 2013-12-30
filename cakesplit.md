@@ -1,8 +1,10 @@
+## The Problem ##
+
 I have come across various restatements of the cake-splitting problem on the net, and I'm sure this solution does not satisfy all of them.  My goal in this algorithm is to suggest a means by which a cake can be split among N people such that each individual feels confident that they received at least 1/N of the cake.  My assumption is that even if an individual believes that his friend received more cake than he, he will still not be disappointed so long as he believes he has received at least 1/N.
 
 Note: *This is a solution I thought of indepenently, but I'm sure others have thought of it before me.  I have heard several approaches to this problem and thought I would post my own.*
 
-# Solution for 3 People #
+## Solution for 3 People ##
 
 I will consider the problem for three people, and then abstract it out to its more recursive form.  Say you have three people, Adam, Ben, and Cindy, splitting a cake.  Adam cuts the cake into three equal pieces (therefore Adam would be equally happy receiving any of those three pieces as his portion).  Ben and Cindy may not see the pieces as equal at all.  Let Ben and Cindy each select the two pieces of the three that they think are the biggest.
 
@@ -32,7 +34,7 @@ The remaining slots are automatically filled by the cake cutter, because the per
 
 Then each of the 3 pieces gets 2 names, and ends up getting split in two between the individuals with a preference for that piece.
 
-# Solution for N People #
+## Solution for N People ##
 
 This concept can be abstracted out to a recursive solution.  If you have a cake that must be split between N people, have person N cut the cake into N pieces.  Then the N-1 people each express N-1 preferences for the different pieces (basically each of them expresses a preference for every piece he or she wants aside from one).  Then the gaps in the preference chart are filled in by person N, who has no preference.  The result is that the N pieces each have a list of N-1 people with a preference for that piece.  Each of those pieces in turn gets recursively split according to this exact algorithm, the base case of which is a 2-way split in which one person splits and the other picks.
 
