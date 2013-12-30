@@ -6,7 +6,7 @@ Note: *This is a solution I thought of indepenently, but I'm sure others have th
 
 ## Solution for 3 People ##
 
-I will consider the problem for three people, and then abstract it out to its more recursive form.  Say you have three people, Adam, Ben, and Cindy, splitting a cake.  Adam cuts the cake into three equal pieces (therefore Adam would be equally happy receiving any of those three pieces as his portion).  Ben and Cindy may not see the pieces as equal at all.  Let Ben and Cindy each select the two pieces of the three that they think are the biggest.
+I will consider the problem for three people, and then abstract it out to its more recursive form.  (**SPOILER WARNING:** *If you intend to solve this problem on your own, work on it before reading further*).  Say you have three people, Adam, Ben, and Cindy, splitting a cake.  Adam cuts the cake into three equal pieces (therefore Adam would be equally happy receiving any of those three pieces as his portion).  Ben and Cindy may not see the pieces as equal at all.  Let Ben and Cindy each select the two pieces of the three that they think are the biggest.
 
 If Ben and Cindy select the same two pieces, the solution is trivial.  Adam takes the piece the both rejected, and Ben and Cindy then re-split the two pieces they want (e.g. Ben splits the total portion and Cindy chooses).  Thus Adam, Ben, and Cindy all believe they have at least 1/3 each - Adam believed he had 1/3 from the get-go, and Ben and Cindy both believe they got at least half of a portion that was greater than or equal to 2/3.
 
