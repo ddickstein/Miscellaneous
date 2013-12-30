@@ -66,13 +66,25 @@ We then fill Danielle into the gaps:
 
 Now pieces 1 through 4 must be divied up into 3 pieces each (I'm not going to draw a chart for each one, but here is a brief rundown of how it would work).
 
-For piece 1, Cindy will cut the piece in 3, Adam and Danielle will each express preferences for 2 of the 3, Cindy will fill in the gaps, and then those pieces will each be split in 2.
-
-For piece 2, Danielle will cut the piece in 3, Adam and Ben will each express preferences for 2 of the 3, Danielle will fill in the gaps, and then those pieces will each be split in 2.
-
-For piece 3, Cindy will cut the piece in 3, Danielle and Ben will each express preferences for 2 of the 3, Cindy will fill in the gaps, and then those pieces will each be split in 2.
-
-For piece 4, Cindy will cut the piece in 3, Adam and Ben will each express preferences for 2 of the 3, Cindy will fill in the gaps, and then those pieces will each be split in 2.
+    For piece 1:
+      Cindy will cut the piece into 3 pieces.
+      Adam and Danielle will each express preferences for 2 of the 3, and Cindy will fill in the gaps.
+      Those pieces will each be split in 2 by those who prefer them.
+    
+    For piece 2:
+      Danielle will cut the piece into 3 pieces.
+      Adam and Ben will each express preferences for 2 of the 3, and Danielle will fill in the gaps.
+      Those pieces will each be split in 2 by those who prefer them.
+    
+    For piece 3:
+      Cindy will cut the piece into 3 pieces.
+      Danielle and Ben will each express preferences for 2 of the 3, and Cindy will fill in the gaps.
+      Those pieces will each be split in 2 by those who prefer them.
+    
+    For piece 4:
+      Cindy will cut the piece into 3 pieces.
+      Adam and Ben will each express preferences for 2 of the 3, and Cindy will fill in the gaps.
+      Those pieces will each be split in 2 by those who prefer them.
 
 Truly it does not matter at each point who does the splitting and who expresses preferences, but it's simple to implement as person N always does the splitting.
 
