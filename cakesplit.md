@@ -4,7 +4,7 @@ I have come across various restatements of the cake-splitting problem on the net
 
 Note: *This is a solution I thought of indepenently, but I'm sure others have thought of it before me.  I have heard several approaches to this problem and thought I would post my own.*
 
-**SPOILER WARNING:** *If you intend to solve this problem on your own, work on it before reading further.  This problem is usually given where N=3, but the solution I propose here works for any positive integer N.*
+**SPOILER ALERT:** *If you intend to solve this problem on your own, work on it before reading further.  This problem is usually given where N=3, but the solution I propose here works for any positive integer N.*
 
 ## Solution for 3 People ##
 
