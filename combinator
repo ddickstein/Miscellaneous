@@ -1,0 +1,226 @@
+#!/usr/bin/env ruby
+
+# /------------------------------------------------------------------------\ #
+# |                                                                        | #
+# |  Dani Dickstein                                              12/4/13   | #
+# |                                                                        | #
+# |  Combinator - This program is a command-line tool designed to help     | #
+# |      find all possible subsets within a given set that match certain   | #
+# |      constraints specified by the user.                                | #
+# |                                                                        | #
+# |      1) Enter all of the values from which I can choose, one per line. | #
+# |                                                                        | #
+# |      2) Enter the size of your subsets (how many values from your set  | #
+# |         should a given combination contain?)                           | #
+# |                                                                        | #
+# |      3) Enter all restrictions (e.g. values that cannot be together or | #
+# |         a subset of values from which you can only select a certain    | #
+# |         number)                                                        | #
+# |                                                                        | #
+# |      4) Enter all requirements (e.g. values that must be present or a  | #
+# |         subset of values from which a certain number must be present)  | #
+# |                                                                        | #
+# |      I originally designed this program to help me choose my classes,  | #
+# |      but even with the constraints I gave it I was so indecisive I     | #
+# |      ended up with 60 possible class combinations.  So apparently this | #
+# |      tool isn't great for making decisions... but I think it's still   | #
+# |      a fun one.                                                        | #
+# \------------------------------------------------------------------------/ #
+
+require 'set'
+
+# Regex used to make sure that requirements and restrictions are entered
+# correctly (using the correct syntax)
+LIMIT_REGEX = /^\d+\s+of\s+\d+(?:[,\s]+\d+)*[,\s]*$/
+
+#
+# Class used to handle a constraint (either a restriction or a requirement).
+# Constraints are expressed as "n of a, b, c, ..."  For requirements this
+# signifies "at least n of a, b, c, ..." and for restrictions this signifies
+# "at most n of a, b, c, ..."
+#
+class Constraint
+  attr_accessor :num, :set, :type
+  def initialize(num,set,type)
+    self.num = num.to_i
+    self.set = set.to_set
+    self.type = type
+  end
+
+  def include?(x)
+    self.set.include? x
+  end
+
+  #
+  # Check if a given subset abides by the rules of this constraint.
+  #
+  def validate(subset)
+    subset = subset.to_set
+    num_shared = (self.set & subset).length
+    if self.type == :restriction
+      num_shared <= self.num
+    else
+      num_shared >= self.num
+    end
+  end
+
+  def to_s
+    "#{self.num} of #{self.set.to_a}"
+  end
+end
+
+#
+# Not necessarily a great cross-platform solution for screen-clearing, but it
+# should work at least for mac and windows (note: I have only tested this on
+# a mac).
+#
+def clear_screen
+  system "clear" unless system "cls"
+end
+
+#
+# Prints the set of values entered by the user with their corresponding indices
+#
+def print_options(options)
+  options.each_pair do |key,value|
+    puts "#{key}: #{value}"
+  end
+  print "\n"
+end
+
+#
+# Prints out all of the restrictions and requirements specified by the user
+#
+def print_filters(options,restrictions,requirements,num_elems_per_set)
+  clear_screen
+  print_options(options)
+  puts "Elements per set: #{num_elems_per_set}"
+  restrictions.each do |restriction|
+    puts "Restriction: #{restriction}"
+  end
+  requirements.each do |requirement|
+    puts "Requirement: #{requirement}"
+  end
+end
+
+#
+# Gets the original set of values from the user
+#
+def get_options
+  clear_screen
+  puts "Enter all possible options from which to select."
+  puts "When finished, just hit enter:"
+  options = {}
+  option_number = 1
+  loop do
+    print "> "
+    option = gets.chomp
+    break if option.empty?
+    options[option_number] = option
+    option_number += 1
+  end
+  puts "\n"
+  return options
+end
+
+#
+# Gets a set of constraints from the user (this function is used both for
+# restrictions and requirements because both use the same format)
+#
+def read_constraints(type)
+  print "> "
+  constraints = []
+  until ((line = gets.chomp).empty?)
+    if line =~ LIMIT_REGEX
+      num_str,sequence_str = line.split(/\s+of\s+/)
+      num = num_str.to_i
+      sequence = sequence_str.split(/[,\s]/).reject(&:empty?).map(&:to_i)
+      constraints << Constraint.new(num,sequence,type)
+    else
+      puts "Bad format. Usage: `n of a, b, c, ...`"
+    end
+    print "> "
+  end
+  puts "\n"
+  return constraints
+end
+
+def get_restrictions(options)
+  clear_screen
+  print_options(options)
+  puts "A restriction is a subset of data from which you can only choose N "
+  puts "elements.  The format of these restrictions is `N of SUBSET`, where "
+  puts "SUBSET is a list of numbers of the elements in the subset, separated "
+  puts "by spaces and/or commas.\n\n"
+  puts "For example, you can say `1 of 1, 4, 5`, which would mean that in any "
+  puts "given combination, you can only have one element from the {1,4,5} "
+  puts "element subset.\n\n"
+  puts "Enter all the restrictions for the data."
+  puts "When finished, just hit enter:"
+  return read_constraints(:restriction)
+end
+
+def get_requirements(options)
+  clear_screen
+  print_options(options)
+  puts "A requirement is a subset of data from which you must choose at least "
+  puts "N elements.  The format of these requirements is the same as the "
+  puts "format for the restrictions.\n\n"
+  puts "Enter all the requirements for the data."
+  puts "When finished, just hit enter:"
+  return read_constraints(:requirement)
+end
+
+
+#
+#  This is the main body of my code.
+#
+options = get_options # get the options from the user
+clear_screen
+print "How many elements per set? " # get number of elements in each subset
+num_elems_per_set = gets.chomp.to_i
+restrictions = get_restrictions(options) # get restrictions
+requirements = get_requirements(options) # get requirements
+clear_screen
+print "Name of file to save results (leave blank to print to screen): "
+filename = gets.chomp # get filename in which to save the results
+# print out all the info the user entered (previous info entered would not be
+# immediately available because of the screen clearing)
+print_filters(options,restrictions,requirements,num_elems_per_set)
+
+#mMake sure the file name is valid (just a name specified - no path)
+unless filename.index('/').nil?
+  $stderr.puts "Error: invalid filename."
+  exit 1
+end
+
+# take advantage of ruby's built in array.combination function to get all
+# possible combinations.  This set of combinations will then be filtered down.
+combos = (1..options.length).to_a.combination(num_elems_per_set).to_a
+if combos.any?
+  # get all the combinations that meet the constraints
+  valid_combos = combos.select { |combo|
+    restrictions.all? { |restriction| restriction.validate(combo) } and
+    requirements.all? { |requirement| requirement.validate(combo) }
+  }.map{ |combo| combo.map{ |elem| options[elem] }}
+  # print out the valid combinations
+  if valid_combos.any?
+    if filename.empty?
+      puts '-------'
+      valid_combos.each do |combo|
+        puts combo
+        puts '-------'
+      end
+    else
+      File.open(filename,'w') do |file|
+        file.puts '-------'
+        valid_combos.each do |combo|
+          file.puts combo
+          file.puts '-------'
+        end
+      end
+    end
+    exit 0
+  end
+end
+puts 'No combinations found.'
